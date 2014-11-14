@@ -1,0 +1,23 @@
+<div>
+   <% todos.each do |todo| %>
+    <% if todo[:completed] %>
+      <li class="completed">
+        <div class="view">
+          <input class="toggle" type="checkbox" checked>
+          <label><%= todo[:text] %></label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" value=<%= todo[:text] %>>
+      </li>
+    <% else %>
+      <li>
+        <div class="view">
+          <input class="toggle" type="checkbox">
+          <label><%= todo[:text] %></label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" value=<%= todo[:text] %>>
+      </li>
+    <% end %>
+  <% end %>
+</div>
