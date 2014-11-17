@@ -1,11 +1,17 @@
 require "sinatra"
 
 enable :sessions
+enable :protection
+set :protection, except: :session_hijacking
+
 
 get "/" do
+  puts "/"
   @todos = todos
+  puts @todos
   @completed_count = completed.length
   @active_count = active.length
+  @all_completed = all_completed? @todos
   erb :index
 end
 
@@ -19,13 +25,43 @@ get "/active" do
   erb :index
 end
 
-post "/" do
-  erb  :partial
+post "/new_todo" do
+  add_todo({:text => params[:title], :completed => false, :id => rand(36**8).to_s(36)})
+  redirect "/"
+  #@todos = todos
+  #erb :index
 end
 
-get "/partial_clone" do
-  erb  :partial_clone
+post "/destroy" do
+  destroy_todo(params[:id])
+  redirect "/"
 end
+
+post "/complete/:id" do
+  complete_todo params[:id]
+  redirect "/"
+end
+
+post "/reactivate/:id" do
+  reactivate_todo params[:id]
+  redirect "/"
+end
+
+post "/edit/:id" do
+  edit_todo params[:id], params[:text]
+  redirect "/"
+end
+
+post "/complete_all" do
+  complete_all_todos
+  redirect "/"
+end
+
+post "/reactivate_all" do
+  reactivate_all_todos
+  redirect "/"
+end
+
 
 private
 
@@ -42,5 +78,48 @@ def active
 end
 
 def todos
-  [{:text => "not completed", :completed => false}, {:text => "completed", :completed => true}]
+  return session[:todos] unless session[:todos] == nil
+  return []
+  #[{:text => "not completed", :completed => false}, {:text => "completed", :completed => true}]
+end
+
+def add_todo todo
+  session[:todos] = [] if session[:todos] == nil
+  session[:todos] << todo
+end
+
+def destroy_todo id
+  session[:todos].delete_if { |todo| todo[:id] == id } 
+end
+
+def complete_todo id
+  todo = find_todo_by_id id
+  todo[:completed] = true
+end
+
+def reactivate_todo id
+  todo = find_todo_by_id id
+  todo[:completed] = false
+end
+
+def edit_todo id, text
+  todo = find_todo_by_id id
+  todo[:text] = text
+end
+
+def find_todo_by_id id
+  session[:todos].select { |todo| todo[:id] == id }.first
+end
+
+def all_completed? todos
+  return true if todos.select { |todo| todo[:completed] == false }.empty?
+  false
+end
+
+def complete_all_todos
+  todos.map { |todo| todo[:completed] = true }
+end
+
+def reactivate_all_todos
+  todos.map { |todo| todo[:completed] = false }
 end
