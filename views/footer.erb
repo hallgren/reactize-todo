@@ -16,7 +16,9 @@
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
-      <button id="clear-completed">Clear completed (<%= @completed_count %>)</button>
+      <form action="/clear_completed" method="post">
+        <button id="clear-completed">Clear completed (<%= @completed_count %>)</button>
+      </form>
     </footer>
   <% end %>
 </div>

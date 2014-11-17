@@ -62,6 +62,11 @@ post "/reactivate_all" do
   redirect "/"
 end
 
+post "/clear_completed" do
+  clear_completed_todos
+  redirect "/"
+end
+
 
 private
 
@@ -122,4 +127,8 @@ end
 
 def reactivate_all_todos
   todos.map { |todo| todo[:completed] = false }
+end
+
+def clear_completed_todos
+  todos.delete_if { |todo| todo[:completed] == true } 
 end
