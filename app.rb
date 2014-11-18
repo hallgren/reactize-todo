@@ -6,9 +6,22 @@ set :protection, except: :session_hijacking
 
 
 get "/" do
-  puts "/"
+  
   @todos = todos
   puts @todos
+  @completed_count = completed.length
+  @active_count = active.length
+  @all_completed = all_completed? @todos
+  erb :index
+end
+
+get "/edit/:id" do
+  
+  @todos = todos
+  @edit_id = params[:id]
+
+  puts @todos
+  
   @completed_count = completed.length
   @active_count = active.length
   @all_completed = all_completed? @todos
@@ -116,8 +129,8 @@ def find_todo_by_id id
   session[:todos].select { |todo| todo[:id] == id }.first
 end
 
-def all_completed? todos
-  return true if todos.select { |todo| todo[:completed] == false }.empty?
+def all_completed? ts
+  return true if ts.select { |todo| todo[:completed] == false }.empty?
   false
 end
 

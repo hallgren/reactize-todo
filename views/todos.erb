@@ -1,5 +1,5 @@
 <div>
-   <% todos.each do |todo| %>
+   <% @todos.each do |todo| %>
     <% if todo[:completed] %>
       <li class="completed">
         <div class="view">
@@ -7,12 +7,21 @@
             <input class="toggle" type="checkbox" checked>
             <input class="toggle" type="submit" value="">
           </form>
-          <label><%= todo[:text] %></label>
+          <% if todo[:id] == @edit_id %>
+            <form action="/edit/<%= todo[:id] %>" method="post">
+              <input type="text" name="text" value="<%= todo[:text] %>">
+            </form>
+          <% else %>
+            <a href="/edit/<%= todo[:id] %>">
+              <label><%= todo[:text] %></label>
+            </a>
+          <% end %>
+          
           <form action="/destroy" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
-        <input type="text" class="edit" value=<%= todo[:text] %>>
+        
       </li>
     <% else %>
       <li>
@@ -21,14 +30,21 @@
             <input class="toggle" type="checkbox">
             <input class="toggle" type="submit" value="">
           </form>
-          <label><%= todo[:text] %></label>
+          <% if todo[:id] == @edit_id %>
+            <form action="/edit/<%= todo[:id] %>" method="post">
+              <input type="text" name="text" value="<%= todo[:text] %>">
+            </form>
+          <% else %>
+            <a href="/edit/<%= todo[:id] %>">
+              <label><%= todo[:text] %></label>
+            </a>
+          <% end %>
+          
           <form action="/destroy" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
-        <form action="/edit/<%= todo[:id] %>" method="post">
-          <input name="text" class="edit" value=<%= todo[:text] %>>
-        </form>
+        
       </li>
     <% end %>
   <% end %>
