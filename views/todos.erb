@@ -1,49 +1,45 @@
 <div>
    <% @todos.each do |todo| %>
     <% if todo[:completed] %>
-      <li class="completed">
+      <li class="completed <%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
           <form action="/reactivate/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" checked>
             <input class="toggle" type="submit" value="">
           </form>
-          <% if todo[:id] == @edit_id %>
-            <form action="/edit/<%= todo[:id] %>" method="post">
-              <input type="text" name="text" value="<%= todo[:text] %>">
-            </form>
-          <% else %>
-            <a href="/edit/<%= todo[:id] %>">
-              <label><%= todo[:text] %></label>
-            </a>
-          <% end %>
+          
+          <a href="/edit/<%= todo[:id] %>">
+            <label><%= todo[:text] %></label>
+          </a>
           
           <form action="/destroy" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
+        <form action="/edit/<%= todo[:id] %>" method="post">
+          <input class="edit" type="text" name="text" value="<%= todo[:text] %>">
+        </form>
         
       </li>
     <% else %>
-      <li>
+      <li class="<%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
           <form action="/complete/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox">
             <input class="toggle" type="submit" value="">
           </form>
-          <% if todo[:id] == @edit_id %>
-            <form action="/edit/<%= todo[:id] %>" method="post">
-              <input type="text" name="text" value="<%= todo[:text] %>">
-            </form>
-          <% else %>
-            <a href="/edit/<%= todo[:id] %>">
-              <label><%= todo[:text] %></label>
-            </a>
-          <% end %>
+          
+          <a href="/edit/<%= todo[:id] %>">
+            <label><%= todo[:text] %></label>
+          </a>
           
           <form action="/destroy" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
+        <form action="/edit/<%= todo[:id] %>" method="post">
+          <input class="edit" type="text" name="text" value="<%= todo[:text] %>">
+        </form>
         
       </li>
     <% end %>
