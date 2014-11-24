@@ -20,12 +20,15 @@ get "/edit/:id" do
   @todos = todos
   @edit_id = params[:id]
 
-  puts @todos
-  
   @completed_count = completed.length
   @active_count = active.length
   @all_completed = all_completed? @todos
   erb :index
+end
+
+get "/todos" do
+  @todos = todos
+  erb :todos
 end
 
 get "/completed" do
@@ -50,14 +53,29 @@ post "/destroy" do
   redirect "/"
 end
 
+get "/todos" do
+  @todos = todos
+  erb :todos
+end
+
 post "/complete/:id" do
   complete_todo params[:id]
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    erb :todos
+  else
+    redirect "/"
+  end
 end
 
 post "/reactivate/:id" do
   reactivate_todo params[:id]
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    erb :todos
+  else
+    redirect "/"
+  end
 end
 
 post "/edit/:id" do

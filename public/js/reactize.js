@@ -1,10 +1,11 @@
 /**
- * Reactize v0.4.0
+ * Reactize v0.4.1
  */
 (function(exports) {
   var Reactize = {};
 
   var CLASS_NAME_REGEX = /\sclass=/g;
+  var INPUT_TAG_REGEX = /\s(<input[^>]*)(>)/g;
 
   Reactize.reactize = function(element) {
     var code = JSXTransformer.transform(
@@ -31,10 +32,11 @@
 
   // Converts an HTML string into a JSX-compliant string.
   Reactize.htmlToJsx = function(html) {
-    return html.replace(CLASS_NAME_REGEX, " className=");
+    html = html.replace(CLASS_NAME_REGEX, " className=");
+    return html.replace(INPUT_TAG_REGEX, "$1 /$2")
   };
 
-  Reactize.version = "0.4.0";
+  Reactize.version = "0.4.1";
 
   exports.Reactize = Reactize;
 })(window);
