@@ -16,10 +16,10 @@
     return eval(code);
   };
 
-  Reactize.applyDiffOnHTMLString = function(current_element, html_string) {
+  Reactize.applyDiffOnHTMLString = function(targetElement, htmlString) {
     var div = document.createElement('div');
-    div.innerHTML = html_string
-    Reactize.applyDiff(current_element, div)
+    div.innerHTML = htmlString
+    Reactize.applyDiff(targetElement, div)
   };
 
   Reactize.applyDiff = function(targetElement, replacementElement) {
