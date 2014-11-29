@@ -5,7 +5,8 @@
   var Reactize = {};
 
   var CLASS_NAME_REGEX = /\sclass=/g;
-  var INPUT_TAG_REGEX = /\s<input([^>]*)(>)/g;
+  var INPUT_TAG_REGEX = /\s<input([^>]*)(.*value.*)(>)/g;
+  var CLOSING_INPUT_TAG_REGEX = /\s(<input[^>]*)(>)/g;
 
   Reactize.reactize = function(element) {
     var code = JSXTransformer.transform(
@@ -33,7 +34,8 @@
   // Converts an HTML string into a JSX-compliant string.
   Reactize.htmlToJsx = function(html) {
     html = html.replace(CLASS_NAME_REGEX, " className=");
-    return html = html.replace(INPUT_TAG_REGEX, "<ReactInput $1 /$2")
+    html = html.replace(INPUT_TAG_REGEX, "<ReactInput $1 $2 /$3")
+    return html = html.replace(CLOSING_INPUT_TAG_REGEX, "$1 /$2")
   };
 
   var ReactInput = React.createClass({
