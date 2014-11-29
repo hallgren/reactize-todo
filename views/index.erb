@@ -11,7 +11,7 @@
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
-        <form action="/new_todo" method="post">
+        <form id="form-new_todo" action="/new_todo" method="post">
           <input id="new-todo" placeholder="What needs to be done?" autofocus name="title">
         </form>
       </header>
@@ -41,7 +41,7 @@
       </section>
     </section>
     <footer id="info">
-      <p>Double-click to edit a todo</p>
+      <p>Click to edit a todo</p>
       <!-- Remove the below line ↓ -->
       <p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
       <!-- Change this out with your name and url ↓ -->
@@ -52,7 +52,7 @@
     <script src="/bower_components/todomvc-common/base.js"></script>
     <script src="/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="/bower_components/react/react.min.js"></script>
+    <script src="/bower_components/react/react.js"></script>
     <script src="/bower_components/react/JSXTransformer.js"></script>
     <script src="/js/reactize.js"></script>
   </body>
@@ -63,9 +63,27 @@
 
     Reactize.applyDiff(document.getElementById("todo-list"), document.getElementById("todo-list"));
 
-    $(document).on("click", ".toggle", function(element) {
-      href = element.target.form.action
-      $.post(href, function(data) {
+    // $(document).on("click", ".toggle", function(element) {
+    //   debugger;
+    //   href = element.target.form.action
+    //   $.post(href, function(data) {
+    //     Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+    //   });
+    //   return false
+    // });
+
+    $(document).on("submit", "#form-new_todo", function(element) {
+      href = element.currentTarget.action
+      $.post(href, {"title": element.target[0].value} , function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+      });
+      $("#new-todo").val("");
+      return false
+    });
+
+    $(document).on("submit", ".form-edit", function(element) {
+      href = element.currentTarget.action
+      $.post(href, {"text": element.target[0].value} , function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
       });
       return false
