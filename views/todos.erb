@@ -5,14 +5,14 @@
         <div class="view">
           <form action="/reactivate/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" checked="true" />
-            <input class="toggle" type="submit" />
+            <input class="toggle" type="submit" value=""/>
           </form>
     <% else %>
       <li class="<%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
           <form action="/complete/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" />
-            <input class="toggle" type="submit" />
+            <input class="toggle" type="submit" value=""/>
           </form>
     <% end %>
           <a href="/edit/<%= todo[:id] %>">
