@@ -8,7 +8,7 @@ todomvc in reactize
 
 1. Clone this repo
 
-        $ git clone git@github.com:ssorallen/turbo-react.git
+        $ git clone https://github.com/hallgren/reactize-todo.git
 
 2. Install bundle dependencies
 
