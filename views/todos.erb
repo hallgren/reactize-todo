@@ -5,26 +5,16 @@
         <div class="view">
           <form action="/reactivate/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" checked="true" />
-            <input class="toggle" type="submit" value="" />
+            <input class="toggle" type="submit" />
           </form>
-          <a href="/edit/<%= todo[:id] %>">
-            <label><%= todo[:text] %></label>
-          </a>
-          <form action="/destroy" method="post">
-            <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
-          </form>
-        </div>
-        <form action="/edit/<%= todo[:id] %>" method="post">
-          <input class="edit" type="text" name="text" value="<%= todo[:text] %>">
-        </form>
-      </li>
     <% else %>
       <li class="<%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
           <form action="/complete/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" />
-            <input class="toggle" type="submit" value="" />
+            <input class="toggle" type="submit" />
           </form>
+    <% end %>
           <a href="/edit/<%= todo[:id] %>">
             <label><%= todo[:text] %></label>
           </a>
@@ -32,10 +22,9 @@
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
-        <form action="/edit/<%= todo[:id] %>" method="post">
+        <form class="form-edit" action="/edit/<%= todo[:id] %>" method="post">
           <input class="edit" type="text" name="text" value="<%= todo[:text] %>" />
         </form>
       </li>
-    <% end %>
   <% end %>
 </div>
