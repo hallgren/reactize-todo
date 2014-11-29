@@ -20,10 +20,14 @@ get "/edit/:id" do
   @todos = todos
   @edit_id = params[:id]
 
-  @completed_count = completed.length
-  @active_count = active.length
-  @all_completed = all_completed? @todos
-  erb :index
+  if request.xhr?
+    erb :todos
+  else
+    @completed_count = completed.length
+    @active_count = active.length
+    @all_completed = all_completed? @todos
+    erb :index
+  end
 end
 
 get "/todos" do
@@ -43,9 +47,12 @@ end
 
 post "/new_todo" do
   add_todo({:text => params[:title], :completed => false, :id => rand(36**8).to_s(36)})
-  redirect "/"
-  #@todos = todos
-  #erb :index
+  if request.xhr?
+    @todos = todos
+    erb :todos
+  else
+    redirect "/"
+  end
 end
 
 post "/destroy" do
@@ -80,7 +87,12 @@ end
 
 post "/edit/:id" do
   edit_todo params[:id], params[:text]
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    erb :todos
+  else
+    redirect "/"
+  end
 end
 
 post "/complete_all" do
