@@ -5,7 +5,7 @@
   var Reactize = {};
 
   var CLASS_NAME_REGEX = /\sclass=/g;
-  var INPUT_TAG_REGEX = /\s<input([^>]*)(.*value.*)(>)/g;
+  var INPUT_TAG_WITH_VALUE_REGEX = /\s<input([^>]*)(.*value.*)(>)/g;
   var CLOSING_INPUT_TAG_REGEX = /\s(<input[^>]*)(>)/g;
 
   Reactize.reactize = function(element) {
@@ -22,9 +22,9 @@
     Reactize.applyDiff(current_element, div)
   };
 
-  Reactize.applyDiff = function(current_element, new_element) {
-    var bod = Reactize.reactize(new_element);
-    React.render(bod, current_element);
+  Reactize.applyDiff = function(targetElement, replacementElement) {
+    var bod = Reactize.reactize(replacementElement);
+    React.render(bod, targetElement);
   };
 
   Reactize.applyBodyDiff = function() {
@@ -34,7 +34,7 @@
   // Converts an HTML string into a JSX-compliant string.
   Reactize.htmlToJsx = function(html) {
     html = html.replace(CLASS_NAME_REGEX, " className=");
-    html = html.replace(INPUT_TAG_REGEX, "<ReactInput $1 $2 /$3")
+    html = html.replace(INPUT_TAG_WITH_VALUE_REGEX, "<ReactInput $1 $2 /$3")
     return html = html.replace(CLOSING_INPUT_TAG_REGEX, "$1 /$2")
   };
 
