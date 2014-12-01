@@ -2,12 +2,10 @@
   <% if @all_completed %>
     <form action="/reactivate_all" method="post">
       <input id="toggle-all" type="checkbox" checked="true">
-      <input type="submit" value="">
     </form>     
   <% else %>
     <form action="/complete_all" method="post">
       <input id="toggle-all" type="checkbox">
-      <input type="submit" value="">
     </form>
   <% end %>
 <% end %>

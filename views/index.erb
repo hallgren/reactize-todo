@@ -11,7 +11,8 @@
     <div id="queries" hidden>
       <ul>
         <li><a rel="footer" href="/footer">footer</a></li>
-        <li><a rel="todos" href="/todos">footer</a></li>
+        <li><a rel="todos" href="/todos">todos</a></li>
+        <li><a rel="toggle_all" href="/toggle_all">toggle_all</a></li>
       </ul>
     </div>
     <section id="todoapp">
@@ -129,6 +130,14 @@
       href = $('body').find('a[rel=footer]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("foot"), data)
+      });
+      return false
+    });
+
+    $(window).on("todo-list-update footer-update-update", function(){
+      href = $('body').find('a[rel=toggle_all]').attr("href")
+      $.get(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("toggle_all"), data)
       });
       return false
     });
