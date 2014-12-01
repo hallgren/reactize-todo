@@ -55,9 +55,14 @@ post "/new_todo" do
   end
 end
 
-post "/destroy" do
+post "/destroy/:id" do
   destroy_todo(params[:id])
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    erb :todos
+  else
+    redirect "/"
+  end
 end
 
 get "/todos" do
