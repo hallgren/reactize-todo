@@ -63,14 +63,13 @@
 
     Reactize.applyDiff(document.getElementById("todo-list"), document.getElementById("todo-list"));
 
-    // $(document).on("click", ".toggle", function(element) {
-    //   debugger;
-    //   href = element.target.form.action
-    //   $.post(href, function(data) {
-    //     Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
-    //   });
-    //   return false
-    // });
+    $(document).on("click", ".toggle", function(element) {
+      href = element.target.form.action
+      $.post(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+      });
+      return false
+    });
 
     $(document).on("submit", "#form-new_todo", function(element) {
       href = element.currentTarget.action
