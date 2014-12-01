@@ -1,7 +1,7 @@
 <% if @todos.length > 0 %>
   <% if @all_completed %>
     <form action="/reactivate_all" method="post">
-      <input id="toggle-all" type="checkbox" checked>
+      <input id="toggle-all" type="checkbox" checked="true">
       <input type="submit" value="">
     </form>     
   <% else %>
