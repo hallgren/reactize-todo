@@ -35,6 +35,13 @@ get "/todos" do
   erb :todos
 end
 
+get "/footer" do
+  @todos = todos
+  @completed_count = completed.length
+  @active_count = active.length
+  erb :footer
+end
+
 get "/completed" do
   @todos = completed
   erb :index

@@ -1,9 +1,7 @@
 <div>
   <% if @todos.length > 0 %>
     <footer id="footer">
-      <!-- This should be `0 items left` by default -->
       <span id="todo-count"><strong><%= @active_count %></strong> item left</span>
-      <!-- Remove this if you don't implement routing -->
       <ul id="filters">
         <li>
           <a class="selected" href="#/">All</a>
@@ -15,7 +13,6 @@
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <!-- Hidden if no completed items are left ↓ -->
       <form action="/clear_completed" method="post">
         <button id="clear-completed">Clear completed (<%= @completed_count %>)</button>
       </form>

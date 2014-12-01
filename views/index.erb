@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
+    <div id="queries" hidden>
+      <ul>
+        <li><a rel="footer" href="/footer">footer</a></li>
+      </ul>
+    </div>
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
@@ -21,12 +26,12 @@
           <% if @all_completed %>
             <form action="/reactivate_all" method="post">
               <input id="toggle-all" type="checkbox" checked>
-              <input class="toggle" type="submit" value="">
+              <input type="submit" value="">
             </form>     
           <% else %>
             <form action="/complete_all" method="post">
               <input id="toggle-all" type="checkbox">
-              <input class="toggle" type="submit" value="">
+              <input type="submit" value="">
             </form>
           <% end %>
         <% end %>
@@ -62,11 +67,13 @@
   $(document).ready(function(){
 
     Reactize.applyDiff(document.getElementById("todo-list"), document.getElementById("todo-list"));
+    Reactize.applyDiff(document.getElementById("foot"), document.getElementById("foot"));
 
     $(document).on("click", ".toggle", function(element) {
       href = element.target.form.action
       $.post(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+        $(window).trigger("todo-list-update");
       });
       return false
     });
@@ -75,6 +82,7 @@
       href = element.target.form.action
       $.post(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+        $(window).trigger("todo-list-update");
       });
       return false
     });
@@ -84,6 +92,7 @@
       href = element.target.parentElement.href
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+        $(window).trigger("todo-list-update");
       });
       return false
     });
@@ -92,6 +101,7 @@
       href = element.currentTarget.action
       $.post(href, {"title": element.target[0].value} , function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+        $(window).trigger("todo-list-update");
       });
       $("#new-todo").val("");
       return false
@@ -101,17 +111,18 @@
       href = element.currentTarget.action
       $.post(href, {"text": element.target[0].value} , function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+        $(window).trigger("todo-list-update");
       });
       return false
     });
 
-    // $(window).on("update", function(){
-    //   href = $('body').find('a[rel=partial_clone]').attr("href")
-    //   $.get(href, function(data) {
-    //     Reactize.applyDiffOnHTMLString(document.getElementById("widget_clone"), data)
-    //   });
-    //   return false
-    // });
+    $(window).on("todo-list-update", function(){
+      href = $('body').find('a[rel=footer]').attr("href")
+      $.get(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("foot"), data)
+      });
+      return false
+    });
 
   });
 
