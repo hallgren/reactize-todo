@@ -119,7 +119,14 @@ end
 
 post "/clear_completed" do
   clear_completed_todos
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    @completed_count = completed.length
+    @active_count = active.length
+    erb :footer
+  else
+    redirect "/"
+  end
 end
 
 

@@ -11,6 +11,7 @@
     <div id="queries" hidden>
       <ul>
         <li><a rel="footer" href="/footer">footer</a></li>
+        <li><a rel="todos" href="/todos">footer</a></li>
       </ul>
     </div>
     <section id="todoapp">
@@ -116,6 +117,14 @@
       return false
     });
 
+    $(window).on("footer-update", function(){
+      href = $('body').find('a[rel=todos]').attr("href")
+      $.get(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
+      });
+      return false
+    });
+
     $(window).on("todo-list-update", function(){
       href = $('body').find('a[rel=footer]').attr("href")
       $.get(href, function(data) {
@@ -124,6 +133,15 @@
       return false
     });
 
+    $(document).on("click", "#clear-completed", function(element) {
+      href = element.target.form.action
+      $.post(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("foot"), data)
+        $(window).trigger("footer-update");
+      });
+      return false
+    });
+    
   });
 
 </script>
