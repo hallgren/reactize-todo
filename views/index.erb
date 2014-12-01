@@ -23,19 +23,9 @@
       </header>
       <!-- This section should be hidden by default and shown when there are todos -->
       <section id="main">
-        <% if @todos.length > 0 %>
-          <% if @all_completed %>
-            <form action="/reactivate_all" method="post">
-              <input id="toggle-all" type="checkbox" checked>
-              <input type="submit" value="">
-            </form>     
-          <% else %>
-            <form action="/complete_all" method="post">
-              <input id="toggle-all" type="checkbox">
-              <input type="submit" value="">
-            </form>
-          <% end %>
-        <% end %>
+        <div id="toggle_all">
+          <%= erb :toggle_all %>
+        </div>
         <label for="toggle-all">Mark all as complete</label>
         <ul id="todo-list">
           <%= erb :todos %>
@@ -69,6 +59,16 @@
 
     Reactize.applyDiff(document.getElementById("todo-list"), document.getElementById("todo-list"));
     Reactize.applyDiff(document.getElementById("foot"), document.getElementById("foot"));
+    Reactize.applyDiff(document.getElementById("toggle_all"), document.getElementById("toggle_all"));
+
+    $(document).on("click", "#toggle_all", function(element) {
+      href = element.target.form.action
+      $.post(href, function(data) {
+        Reactize.applyDiffOnHTMLString(document.getElementById("toggle_all"), data)
+        $(window).trigger("toggle_all-update");
+      });
+      return false
+    });
 
     $(document).on("click", ".toggle", function(element) {
       href = element.target.form.action
@@ -117,7 +117,7 @@
       return false
     });
 
-    $(window).on("footer-update", function(){
+    $(window).on("footer-update toggle_all-update", function(){
       href = $('body').find('a[rel=todos]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
@@ -125,7 +125,7 @@
       return false
     });
 
-    $(window).on("todo-list-update", function(){
+    $(window).on("todo-list-update toggle_all-update", function(){
       href = $('body').find('a[rel=footer]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("foot"), data)

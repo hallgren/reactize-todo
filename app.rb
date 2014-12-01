@@ -77,6 +77,12 @@ get "/todos" do
   erb :todos
 end
 
+get "/toggle_all" do
+  @todos = todos
+  @all_completed = all_completed? @todos
+  erb :toggle_all
+end
+
 post "/complete/:id" do
   complete_todo params[:id]
   if request.xhr?
@@ -109,12 +115,24 @@ end
 
 post "/complete_all" do
   complete_all_todos
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    @all_completed = all_completed? @todos
+    erb :toggle_all
+  else
+    redirect "/"
+  end
 end
 
 post "/reactivate_all" do
   reactivate_all_todos
-  redirect "/"
+  if request.xhr?
+    @todos = todos
+    @all_completed = all_completed? @todos
+    erb :toggle_all
+  else
+    redirect "/"
+  end
 end
 
 post "/clear_completed" do
