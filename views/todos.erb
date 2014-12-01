@@ -16,7 +16,7 @@
           </form>
     <% end %>
           <a href="/edit/<%= todo[:id] %>">
-            <label><%= todo[:text] %></label>
+            <label class="edit_me"><%= todo[:text] %></label>
           </a>
           <form action="/destroy/<%= todo[:id] %>" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
