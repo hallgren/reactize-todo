@@ -134,7 +134,7 @@
       return false
     });
 
-    $(window).on("todo-list-update footer-update-update", function(){
+    $(window).on("todo-list-update footer-update", function(){
       href = $('body').find('a[rel=toggle_all]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("toggle_all"), data)
