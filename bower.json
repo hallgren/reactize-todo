@@ -1,9 +1,9 @@
 {
-  "name": "turbo-react",
+  "name": "reactize-todo",
   "version": "1.0.0",
-  "homepage": "https://github.com/ssorallen/turbo-react",
+  "homepage": "https://github.com/hallgren/reactize-todo",
   "authors": [
-    "Ross Allen <rossgit@gmail.com>"
+    "Morgan Hallgren <morgan.hallgren@gmail.com>"
   ],
   "license": "MIT",
   "private": true,
@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "react": "0.12.x",
-    "todomvc-common": "0.0.1"
+    "reactize": "0.0.1",
+    "todomvc-common": "0.3.1"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "name": "reactize",
+  "version": "0.0.1",
+  "description": "react with html",
+  "main": "reactize.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.1"
+  },
+  "homepage": "https://github.com/hallgren/reactize",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "fd4bd8de99c3a4ce096c8440b27b975087cb0c38"
+  },
+  "_source": "git://github.com/hallgren/reactize.git",
+  "_target": "0.0.1",
+  "_originalSource": "reactize"
+}
