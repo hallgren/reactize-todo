@@ -15,10 +15,11 @@ get "/" do
   erb :index
 end
 
-get "/edit/:id" do
+get "/?:route?/edit/:id" do
   
   @todos = todos
   @edit_id = params[:id]
+  @route = params[:route]
 
   if request.xhr?
     erb :todos
@@ -30,8 +31,12 @@ get "/edit/:id" do
   end
 end
 
-get "/todos" do
+get "/?:route?/todos" do
+  puts "-----"
+  puts params[:route]
+  puts "----"
   @todos = todos
+  @route = params[:route]
   erb :todos
 end
 
@@ -44,37 +49,37 @@ end
 
 get "/completed" do
   @todos = completed
+  @route = "completed"
   erb :index
 end
 
 get "/active" do
   @todos = active
+  @route = "active"
   erb :index
 end
 
-post "/new_todo" do
+post "/?:route?/new_todo" do
   add_todo({:text => params[:title], :completed => false, :id => rand(36**8).to_s(36)})
+
   if request.xhr?
     @todos = todos
+    @route = params[:route]
     erb :todos
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/destroy/:id" do
+post "/?:route?/destroy/:id" do
   destroy_todo(params[:id])
   if request.xhr?
     @todos = todos
+    @route = params[:route]
     erb :todos
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
-end
-
-get "/todos" do
-  @todos = todos
-  erb :todos
 end
 
 get "/toggle_all" do
@@ -83,67 +88,73 @@ get "/toggle_all" do
   erb :toggle_all
 end
 
-post "/complete/:id" do
+post "/?:route?/complete/:id" do
   complete_todo params[:id]
   if request.xhr?
     @todos = todos
+    @route = params[:route]
     erb :todos
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/reactivate/:id" do
+post "/?:route?/reactivate/:id" do
   reactivate_todo params[:id]
   if request.xhr?
     @todos = todos
+    @route = params[:route]
     erb :todos
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/edit/:id" do
+post "/?:route?/edit/:id" do
   edit_todo params[:id], params[:text]
   if request.xhr?
     @todos = todos
+    @route = params[:route]
     erb :todos
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/complete_all" do
+post "/?:route?/complete_all" do
   complete_all_todos
   if request.xhr?
     @todos = todos
     @all_completed = all_completed? @todos
+    @route = params[:route]
     erb :toggle_all
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/reactivate_all" do
+post "/?:route?/reactivate_all" do
   reactivate_all_todos
   if request.xhr?
     @todos = todos
     @all_completed = all_completed? @todos
+    @route = params[:route]
     erb :toggle_all
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
-post "/clear_completed" do
+post "/?:route?/clear_completed" do
   clear_completed_todos
   if request.xhr?
     @todos = todos
     @completed_count = completed.length
     @active_count = active.length
+    @route = params[:route]
     erb :footer
   else
-    redirect "/"
+    redirect "/#{params[:route]}"
   end
 end
 
