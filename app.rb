@@ -8,10 +8,10 @@ set :protection, except: :session_hijacking
 get "/" do
   
   @todos = todos
-  puts @todos
   @completed_count = completed.length
   @active_count = active.length
   @all_completed = all_completed? @todos
+  @show_footer = @todos.length > 0
   erb :index
 end
 
@@ -27,14 +27,12 @@ get "/?:route?/edit/:id" do
     @completed_count = completed.length
     @active_count = active.length
     @all_completed = all_completed? @todos
+    @show_footer = @todos.length > 0
     erb :index
   end
 end
 
 get "/?:route?/todos" do
-  puts "-----"
-  puts params[:route]
-  puts "----"
   @todos = todos
   @route = params[:route]
   erb :todos
@@ -44,18 +42,21 @@ get "/footer" do
   @todos = todos
   @completed_count = completed.length
   @active_count = active.length
+  @show_footer = todos.length > 0
   erb :footer
 end
 
 get "/completed" do
   @todos = completed
   @route = "completed"
+  @show_footer = todos.length > 0
   erb :index
 end
 
 get "/active" do
   @todos = active
   @route = "active"
+  @show_footer = todos.length > 0
   erb :index
 end
 
@@ -152,6 +153,7 @@ post "/?:route?/clear_completed" do
     @completed_count = completed.length
     @active_count = active.length
     @route = params[:route]
+    @show_footer = @todos.length > 0
     erb :footer
   else
     redirect "/#{params[:route]}"

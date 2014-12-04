@@ -3,26 +3,26 @@
     <% if todo[:completed] %>
       <li class="completed <%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
-          <form action="/reactivate/<%= todo[:id] %>" method="post">
+          <form action="<%= "/#{@route}" if @route %>/reactivate/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" checked="true" />
             <input class="toggle" type="submit" value=""/>
           </form>
     <% else %>
       <li class="<%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
-          <form action="/complete/<%= todo[:id] %>" method="post">
+          <form action="<%= "/#{@route}" if @route %>/complete/<%= todo[:id] %>" method="post">
             <input class="toggle" type="checkbox" />
             <input class="toggle" type="submit" value=""/>
           </form>
     <% end %>
-          <a href="/edit/<%= todo[:id] %>">
+          <a href="<%= "/#{@route}" if @route %>/edit/<%= todo[:id] %>">
             <label class="edit_me"><%= todo[:text] %></label>
           </a>
-          <form action="/destroy/<%= todo[:id] %>" method="post">
+          <form action="<%= "/#{@route}" if @route %>/destroy/<%= todo[:id] %>" method="post">
             <button class="destroy" name="id" value="<%= todo[:id] %>"></button>
           </form>
         </div>
-        <form class="form-edit" action="/edit/<%= todo[:id] %>" method="post">
+        <form class="form-edit" action="<%= "/#{@route}" if @route %>/edit/<%= todo[:id] %>" method="post">
           <input class="edit" type="text" name="text" value="<%= todo[:text] %>" />
         </form>
       </li>

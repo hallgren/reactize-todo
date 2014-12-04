@@ -11,14 +11,14 @@
     <div id="queries" hidden>
       <ul>
         <li><a rel="footer" href="/footer">footer</a></li>
-        <li><a rel="todos" href="/todos">todos</a></li>
+        <li><a rel="todos" href="/<%= @route  %>/todos">todos</a></li>
         <li><a rel="toggle_all" href="/toggle_all">toggle_all</a></li>
       </ul>
     </div>
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
-        <form id="form-new_todo" action="/new_todo" method="post">
+        <form id="form-new_todo" action="<%= @route %>/new_todo" method="post">
           <input id="new-todo" placeholder="What needs to be done?" autofocus name="title">
         </form>
       </header>
