@@ -92,7 +92,6 @@
       href = element.target.parentElement.href
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
-        $(window).trigger("todo-list-update");
       });
       return false
     });
