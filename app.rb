@@ -50,13 +50,17 @@ get "/completed" do
   @todos = completed
   @route = "completed"
   @show_footer = todos.length > 0
+  @active_count = active.length
+  @completed_count = completed.length
   erb :index
 end
 
 get "/active" do
   @todos = active
   @route = "active"
+  @active_count = active.length
   @show_footer = todos.length > 0
+  @completed_count = completed.length
   erb :index
 end
 
