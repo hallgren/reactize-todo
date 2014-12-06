@@ -10,8 +10,8 @@
   <body>
     <div id="queries" hidden>
       <ul>
-        <li><a rel="footer" href="/footer">footer</a></li>
-        <li><a rel="todos" href="/<%= @route  %>/todos">todos</a></li>
+        <li><a rel="footer" href="<%= "/#{@route}" if @route && @route != "/" %>/footer">footer</a></li>
+        <li><a rel="todos" href="<%= "/#{@route}" if @route && @route != "/" %>/todos">todos</a></li>
         <li><a rel="toggle_all" href="/toggle_all">toggle_all</a></li>
       </ul>
     </div>
@@ -71,6 +71,7 @@
 
     $(document).on("click", ".toggle", function(element) {
       href = element.target.form.action
+      debugger;
       $.post(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
         $(window).trigger("todo-list-update");
@@ -117,6 +118,7 @@
 
     $(window).on("footer-update toggle_all-update", function(){
       href = $('body').find('a[rel=todos]').attr("href")
+      debugger;
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
       });

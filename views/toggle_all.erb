@@ -1,12 +1,14 @@
 <div>
-<% if @todos.length > 0 %>
+<% if @show_footer_and_toggle_all %>
   <% if @all_completed %>
-    <form action="/reactivate_all" method="post">
+    <form action="<%= "/#{@route}" if @route %>/reactivate_all" method="post">
       <input id="toggle-all" type="checkbox" checked="true">
+      <input type="submit" value="Reactivate all" />
     </form>     
   <% else %>
-    <form action="/complete_all" method="post">
+    <form action="<%= "/#{@route}" if @route %>/complete_all" method="post">
       <input id="toggle-all" type="checkbox">
+      <input type="submit" value="Complete all" />
     </form>
   <% end %>
 <% end %>
