@@ -33,13 +33,12 @@ get "/?:route?/edit/:id" do
 end
 
 get "/?:route?/todos" do
-  @todos = todos
   @route = params[:route]
+  @todos = todos_based_on_route @route
   erb :todos
 end
 
 get "/?:route?/footer" do
-  @todos = todos
   @completed_count = completed.length
   @active_count = active.length
   @route = params[:route]
@@ -93,6 +92,7 @@ end
 get "/toggle_all" do
   @todos = todos
   @all_completed = all_completed? @todos
+  @show_footer_and_toggle_all = todos.length > 0
   erb :toggle_all
 end
 
@@ -133,8 +133,8 @@ post "/?:route?/complete_all" do
   complete_all_todos
   if request.xhr?
     @route = params[:route]
-    @todos = todos_based_on_route @route
-    @all_completed = all_completed? @todos
+    @all_completed = all_completed? todos
+    @show_footer_and_toggle_all = todos.length > 0
     erb :toggle_all
   else
     redirect "/#{params[:route]}"
@@ -145,8 +145,8 @@ post "/?:route?/reactivate_all" do
   reactivate_all_todos
   if request.xhr?
     @route = params[:route]
-    @todos = todos_based_on_route @route
-    @all_completed = all_completed? @todos
+    @all_completed = all_completed? todos
+    @show_footer_and_toggle_all = todos.length > 0
     erb :toggle_all
   else
     redirect "/#{params[:route]}"

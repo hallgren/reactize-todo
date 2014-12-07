@@ -5,7 +5,7 @@
   var Reactize = {};
 
   var CLASS_NAME_REGEX = /\sclass=/g;
-  var INPUT_TAG_WITH_VALUE_REGEX = /\s<input([^>]*)(.*value.*)(>)/g;
+  var INPUT_TAG_WITH_VALUE_REGEX = /\s(<input[^>]*).*value=(".*")(.*>)/g;
   var CLOSING_INPUT_TAG_REGEX = /\s(<input[^>]*)(>)/g;
 
   Reactize.reactize = function(element) {
@@ -34,26 +34,11 @@
   // Converts an HTML string into a JSX-compliant string.
   Reactize.htmlToJsx = function(html) {
     html = html.replace(CLASS_NAME_REGEX, " className=");
-    html = html.replace(INPUT_TAG_WITH_VALUE_REGEX, "<ReactInput $1 $2 /$3")
+    html = html.replace(INPUT_TAG_WITH_VALUE_REGEX, "$1 defaultValue=$2 $3")
     return html = html.replace(CLOSING_INPUT_TAG_REGEX, "$1 /$2")
   };
 
-  var ReactInput = React.createClass({
-    getInitialState: function() {
-      this.props.onChange = this.handleChange
-      return this.props;
-    },
-
-    handleChange: function(event) {
-      this.setState({value: event.currentTarget.value});
-    },
-
-    render: function() {
-      return React.createElement("input", this.state);
-    }
-  });
-
-  Reactize.version = "0.4.2";
+  Reactize.version = "0.4.3";
 
   exports.Reactize = Reactize;
 })(window);

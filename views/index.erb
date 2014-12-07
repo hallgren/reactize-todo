@@ -60,6 +60,9 @@
     Reactize.applyDiff(document.getElementById("foot"), document.getElementById("foot"));
     Reactize.applyDiff(document.getElementById("toggle_all"), document.getElementById("toggle_all"));
 
+    //Hide submit on toggle-all if js is activated
+    $("#toggle-all-submit").hide();
+
     $(document).on("click", "#toggle_all", function(element) {
       href = element.target.form.action
       $.post(href, function(data) {
@@ -137,6 +140,9 @@
       href = $('body').find('a[rel=toggle_all]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("toggle_all"), data)
+        
+        //Hide submit if it was not in the page on page load
+        $("#toggle-all-submit").hide();
       });
       return false
     });

@@ -3,12 +3,12 @@
   <% if @all_completed %>
     <form action="<%= "/#{@route}" if @route %>/reactivate_all" method="post">
       <input id="toggle-all" type="checkbox" checked="true">
-      <input type="submit" value="Reactivate all" />
+      <input id="toggle-all-submit" type="submit" value="Reactivate all" />
     </form>     
   <% else %>
     <form action="<%= "/#{@route}" if @route %>/complete_all" method="post">
       <input id="toggle-all" type="checkbox">
-      <input type="submit" value="Complete all" />
+      <input id="toggle-all-submit" type="submit" value="Complete all" />
     </form>
   <% end %>
 <% end %>
