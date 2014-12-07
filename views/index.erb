@@ -121,7 +121,6 @@
 
     $(window).on("footer-update toggle_all-update", function(){
       href = $('body').find('a[rel=todos]').attr("href")
-      debugger;
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
       });
