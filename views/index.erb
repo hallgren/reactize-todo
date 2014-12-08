@@ -11,7 +11,7 @@
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
-        <form id="form-new_todo" action="/<%= @route %>/new_todo" method="post">
+        <form id="form-new_todo" action="<%= "/#{@route}" if @route %>/new_todo" method="post">
           <input id="new-todo" placeholder="What needs to be done?" autofocus name="title">
         </form>
       </header>
