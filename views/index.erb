@@ -8,13 +8,6 @@
     <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
-    <div id="queries" hidden>
-      <ul>
-        <li><a rel="footer" href="<%= "/#{@route}" if @route && @route != "/" %>/footer">footer</a></li>
-        <li><a rel="todos" href="<%= "/#{@route}" if @route && @route != "/" %>/todos">todos</a></li>
-        <li><a rel="toggle_all" href="/toggle_all">toggle_all</a></li>
-      </ul>
-    </div>
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
@@ -63,6 +56,25 @@
     //Hide submit on toggle-all if js is activated
     $("#toggle-all-submit").hide();
 
+    //Set the current route and remove last /
+    window.route = window.location.pathname.replace(/\/$/, '');
+
+    if (history.pushState) {
+      // supported.
+      $(document).on("click", ".route", function(element){
+        window.route = element.target.pathname.replace(/\/$/, '');
+        var stateObj = { route: element.target.pathname };
+        history.pushState(stateObj, element.target.pathname, element.target.pathname);
+        $(window).trigger("new_route", element.target.pathname);
+        return false;
+      });
+
+      window.onpopstate = function(event) {
+        window.route = event.state.route.replace(/\/$/, '');
+        $(window).trigger("new_route", event.state.route)
+      };
+    }
+
     $(document).on("click", "#toggle_all", function(element) {
       href = element.target.form.action
       $.post(href, function(data) {
@@ -74,7 +86,6 @@
 
     $(document).on("click", ".toggle", function(element) {
       href = element.target.form.action
-      debugger;
       $.post(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
         $(window).trigger("todo-list-update");
@@ -119,24 +130,24 @@
       return false
     });
 
-    $(window).on("footer-update toggle_all-update", function(){
-      href = $('body').find('a[rel=todos]').attr("href")
+    $(window).on("footer-update toggle_all-update new_route", function(){
+      href = window.route + "/todos" //$('body').find('a[rel=todos]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("todo-list"), data)
       });
       return false
     });
 
-    $(window).on("todo-list-update toggle_all-update", function(){
-      href = $('body').find('a[rel=footer]').attr("href")
+    $(window).on("todo-list-update toggle_all-update new_route", function(){
+      href = window.route + "/footer";// $('body').find('a[rel=footer]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("foot"), data)
       });
       return false
     });
 
-    $(window).on("todo-list-update footer-update", function(){
-      href = $('body').find('a[rel=toggle_all]').attr("href")
+    $(window).on("todo-list-update footer-update new_route", function(){
+      href = "/toggle_all"; //$('body').find('a[rel=toggle_all]').attr("href")
       $.get(href, function(data) {
         Reactize.applyDiffOnHTMLString(document.getElementById("toggle_all"), data)
         

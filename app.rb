@@ -68,7 +68,7 @@ end
 
 post "/?:route?/new_todo" do
   add_todo({:text => params[:title], :completed => false, :id => rand(36**8).to_s(36)})
-
+  puts params[:route]
   if request.xhr?
     @route = params[:route]
     @todos = todos_based_on_route @route

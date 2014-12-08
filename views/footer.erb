@@ -4,13 +4,13 @@
       <span id="todo-count"><strong><%= @active_count %></strong> item left</span>
       <ul id="filters">
         <li>
-          <a class="<%= 'selected' unless @route %>" href="/">All</a>
+          <a class="route <%= 'selected' unless @route %>" href="/">All</a>
         </li>
         <li>
-          <a class="<%= 'selected' if @route == 'active'%>" href="/active">Active</a>
+          <a class="route <%= 'selected' if @route == 'active'%>" href="/active">Active</a>
         </li>
         <li>
-          <a class="<%= 'selected' if @route == 'completed'%>"  href="/completed">Completed</a>
+          <a class="route <%= 'selected' if @route == 'completed'%>"  href="/completed">Completed</a>
         </li>
       </ul>
       <form action="/clear_completed" method="post">
