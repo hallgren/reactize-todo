@@ -2,7 +2,7 @@
   "name": "reactize",
   "version": "0.0.1",
   "description": "react with html",
-  "main": "reactize.js",
+  "main": "public/reactize.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

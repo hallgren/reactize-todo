@@ -1,12 +1,12 @@
 /**
- * Reactize v0.4.2
+ * Reactize v0.4.3
  */
 (function(exports) {
   var Reactize = {};
 
   var CLASS_NAME_REGEX = /\sclass=/g;
   var INPUT_TAG_WITH_VALUE_REGEX = /\s(<input[^>]*).*value=(".*")(.*>)/g;
-  var CLOSING_INPUT_TAG_REGEX = /\s(<input[^>]*)(>)/g;
+  var CLOSING_TAG_REGEX = /\s(.*)(<input[^>]*|<hr[^>]*|<br[^>]*|<img[^>]*)(>)/g;
 
   Reactize.reactize = function(element) {
     var code = JSXTransformer.transform(
@@ -35,7 +35,7 @@
   Reactize.htmlToJsx = function(html) {
     html = html.replace(CLASS_NAME_REGEX, " className=");
     html = html.replace(INPUT_TAG_WITH_VALUE_REGEX, "$1 defaultValue=$2 $3")
-    return html = html.replace(CLOSING_INPUT_TAG_REGEX, "$1 /$2")
+    return html = html.replace(CLOSING_TAG_REGEX, "$1$2 /$3")
   };
 
   Reactize.version = "0.4.3";
