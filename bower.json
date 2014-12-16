@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "reactize": "0.4.3",
+    "reactize": "0.4.3-min",
     "todomvc-common": "0.3.1"
   }
 }
