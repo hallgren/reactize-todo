@@ -3,7 +3,6 @@ require "sinatra"
 enable :sessions
 enable :protection
 set :protection, except: :session_hijacking
-use Rack::Deflater
 
 get "/" do
   
