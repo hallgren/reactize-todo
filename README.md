@@ -21,3 +21,8 @@ The cool thing with Reactize is that it makes it possible to brings the web back
         $ bundle exec rackup
 
 4. Visit the app: [http://localhost:9292](http://localhost:9292)
+
+
+#### Live demo
+
+[https://reactize-todo.herokuapp.com/](https://reactize-todo.herokuapp.com/)
