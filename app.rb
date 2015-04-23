@@ -3,16 +3,20 @@ require "sinatra"
 enable :sessions
 enable :protection
 set :protection, except: :session_hijacking
-
+use Rack::Deflater
 
 get "/" do
   
   @todos = todos
-  @completed_count = completed.length
-  @active_count = active.length
-  @all_completed = all_completed? @todos
-  @show_footer_and_toggle_all = todos.length > 0
-  erb :index
+  if @todos.length == 0
+    erb :index_empty
+  else
+    @completed_count = completed.length
+    @active_count = active.length
+    @all_completed = all_completed? @todos
+    @show_footer_and_toggle_all = todos.length > 0
+    erb :index
+  end
 end
 
 get "/?:route?/edit/:id" do
