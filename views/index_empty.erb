@@ -559,7 +559,13 @@ hr {
 }
 
     </style>
-    <script src="/js/main.js" defer async></script>
+    <script>
+      requestAnimationFrame(function(){
+        var script = document.createElement('script');
+        script.src = '/js/main.js';
+        document.body.appendChild(script);
+      });
+    </script>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
   </head>
   <body>

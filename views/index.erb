@@ -557,10 +557,15 @@ hr {
     margin: 130px auto 40px auto;
   }
 }
-
-    </style>
-    <script src="/js/main.js" defer async></script>
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  </style>
+  <script>
+    requestAnimationFrame(function(){
+      var script = document.createElement('script');
+      script.src = '/js/main.js';
+      document.body.appendChild(script);
+    });
+  </script>  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
   </head>
   <body>
     <section id="todoapp">
@@ -590,7 +595,7 @@ hr {
       <!-- Remove the below line ↓ -->
       <p>Template by <a href="http://github.com/sindresorhus">Sindre Sorhus</a></p>
       <!-- Change this out with your name and url ↓ -->
-      <p>Created by <a href="http://todomvc.com">you</a></p>
+      <p>Created by <a href="http://github.com/hallgren/reactize-todo">Morgan Hallgren</a></p>
       <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
     <!-- Scripts here. Don't remove this ↓ -->
