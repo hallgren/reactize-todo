@@ -1,27 +1,14 @@
 {
   "name": "reactize",
-  "version": "0.4.3-min",
-  "description": "react with html",
-  "main": "public/reactize.min.js",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "react": "~0.12.1"
-  },
   "homepage": "https://github.com/Reactize/reactize",
-  "_release": "0.4.3-min",
+  "version": "0.5.0",
+  "_release": "0.5.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.4.3-min",
-    "commit": "a93a13bb29c8d647425ae9719ada31dc61d92bbb"
+    "tag": "0.5.0",
+    "commit": "3100e453c8ec2be50becb172e8437d73696521d0"
   },
   "_source": "git://github.com/Reactize/reactize.git",
-  "_target": "0.4.3-min",
+  "_target": "0.5.0",
   "_originalSource": "reactize"
 }
