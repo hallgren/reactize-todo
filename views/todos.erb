@@ -11,7 +11,7 @@
       <li class="<%= 'editing' if todo[:id] == @edit_id %>">
         <div class="view">
           <form action="<%= "/#{@route}" if @route %>/complete/<%= todo[:id] %>" method="post">
-            <input class="toggle" type="checkbox" />
+            <input class="toggle" type="checkbox"/>
             <input class="toggle" type="submit" value=""/>
           </form>
     <% end %>
