@@ -1,4 +1,4 @@
-<div>
+<div id="toggle_all">
 <% if @show_footer_and_toggle_all %>
   <% if @all_completed %>
     <form action="<%= "/#{@route}" if @route %>/reactivate_all" method="post">

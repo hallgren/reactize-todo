@@ -1,4 +1,4 @@
-<div>
+<ul id="todo-list">
    <% @todos.each do |todo| %>
     <% if todo[:completed] %>
       <li class="completed <%= 'editing' if todo[:id] == @edit_id %>">
@@ -27,4 +27,5 @@
         </form>
       </li>
   <% end %>
-</div>
+
+</ul>

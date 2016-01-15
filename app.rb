@@ -9,14 +9,16 @@ get "/" do
   
   @todos = todos
   if @todos.length == 0
-    erb :index_empty
+    @show_footer_and_toggle_all = false
+    #erb :index_empty
   else
     @completed_count = completed.length
     @active_count = active.length
     @all_completed = all_completed? @todos
     @show_footer_and_toggle_all = todos.length > 0
-    erb :index
+    
   end
+  erb :index
 end
 
 get "/?:route?/edit/:id" do

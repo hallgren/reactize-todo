@@ -559,11 +559,12 @@ hr {
 }
   </style>
 
-  <script src="/js/jquery-2.0.3.min.js"></script>  
-  <script src="/js/reactize.min.js"></script>  
-  <script src="/js/todo_lodgic.js"></script>  
-  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-  </head>
+    <script src="/js/jquery-2.0.3.min.js"></script>  
+    <script src="/js/reactize.min.js" async defer></script>  
+    <script src="/js/krumelur.min.js"></script>  
+    <script src="/js/todo_lodgic.js" async defer></script>  
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    </head>
   <body>
     <section id="todoapp">
       <header id="header">
@@ -574,18 +575,12 @@ hr {
       </header>
       <!-- This section should be hidden by default and shown when there are todos -->
       <section id="main">
-        <div id="toggle_all">
-          <%= erb :toggle_all %>
-        </div>
+        <%= erb :toggle_all %>
         <label for="toggle-all">Mark all as complete</label>
-        <ul id="todo-list">
-          <%= erb :todos %>
-        </ul>
+        <%= erb :todos %>
       </section>
       <!-- This footer should hidden by default and shown when there are todos -->
-      <section id="foot">
-        <%= erb :footer %>
-      </section>
+      <%= erb :footer %>
     </section>
     <footer id="info">
       <p>Click to edit a todo</p>
